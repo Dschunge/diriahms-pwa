@@ -38,7 +38,7 @@ export async function sendNotification(message: string) {
             }
         };
 
-        webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+        webpush.sendNotification(pushSubscription, message);
         return { success: true }
     } catch (error) {
         console.error('Error sending push notification:', error)
@@ -52,14 +52,6 @@ export async function sendNotification1(message: string) {
     }
 
     try {
-        //await webpush.sendNotification(
-        //    subscription,
-        //    JSON.stringify({
-        //        title: 'Test Notification',
-        //        body: message,
-        //        icon: '/icon.png',
-        //    })
-        //)
         const pushSubscription = {
             endpoint: 'https://example.com/push-subscription',
             keys: {
@@ -67,6 +59,15 @@ export async function sendNotification1(message: string) {
                 p256dh: 'some-p256dh-key'
             }
         };
+        await webpush.sendNotification(
+
+            pushSubscription,
+            JSON.stringify({
+                title: 'Test Notification',
+                body: message,
+                icon: '/icon.png',
+            })
+        )
         return { success: true }
     } catch (error) {
         console.error('Error sending push notification:', error)
